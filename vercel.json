@@ -1,4 +1,5 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "Portfolio-Website/dist"
+  "buildCommand": "bash build.sh",
+  "outputDirectory": "Portfolio-Website/dist",
+  "installCommand": "echo 'Dependencies will be installed in build script'"
 }
