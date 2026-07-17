@@ -1,4 +1,4 @@
-declare module 'gsap-trial/SplitText' {
+declare module 'gsap/SplitText' {
   export interface SplitTextConfig {
     type?: string;
     charsClass?: string;
@@ -15,7 +15,7 @@ declare module 'gsap-trial/SplitText' {
   }
 }
 
-declare module 'gsap-trial/ScrollSmoother' {
+declare module 'gsap/ScrollSmoother' {
   export class ScrollSmoother {
     static create(config?: any): ScrollSmoother;
     static refresh(force?: boolean): void;
