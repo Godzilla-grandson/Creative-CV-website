@@ -1,5 +1,12 @@
 {
   "buildCommand": "cd Portfolio-Website && npm install && npm run build",
   "outputDirectory": "Portfolio-Website/dist",
-  "installCommand": "npm install"
+  "installCommand": "cd Portfolio-Website && npm install",
+  "public": "Portfolio-Website/public",
+  "rewrites": [
+    {
+      "source": "/:path((?!.*\\.).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
