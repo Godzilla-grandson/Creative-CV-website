@@ -1,0 +1,10 @@
+{
+  "name": "hrishit-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd Portfolio-Website && npm run dev",
+    "build": "cd Portfolio-Website && npm run build",
+    "preview": "cd Portfolio-Website && npm run preview"
+  }
+}
