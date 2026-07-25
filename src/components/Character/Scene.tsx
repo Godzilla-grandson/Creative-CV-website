@@ -102,7 +102,7 @@ const Scene = () => {
       document.addEventListener("mousemove", (event) => {
         onMouseMove(event);
       });
-      const landingDiv = document.getElementById("landingDiv");
+      const landingDiv = document.getElementById("hero");
       if (landingDiv) {
         landingDiv.addEventListener("touchstart", onTouchStart);
         landingDiv.addEventListener("touchend", onTouchEnd);

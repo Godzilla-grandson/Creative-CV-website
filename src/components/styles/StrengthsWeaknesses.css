@@ -19,11 +19,16 @@
   z-index: 9;
 }
 .what-box h2 {
-  font-size: calc(4vw + 25px);
-  line-height: calc(4vw + 20px);
+  /* Smaller than the original two-word heading this was built for:
+     "STRENGTHS & WEAKNESSES" is long enough to break mid-word otherwise. */
+  font-size: calc(2.6vw + 18px);
+  line-height: calc(2.6vw + 20px);
   font-weight: 600;
   margin-right: 10%;
   margin-bottom: 100px;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
 }
 
 .hat-h2 {

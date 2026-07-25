@@ -12,24 +12,6 @@
   top: 0;
   z-index: 9999;
 }
-.header ul {
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  column-gap: 40px;
-  row-gap: 8px;
-  align-items: end;
-}
-.header ul li {
-  margin-left: 0px;
-  letter-spacing: 1px;
-  color: #ccc;
-  font-weight: 600;
-  cursor: pointer;
-}
 .navbar-connect {
   position: absolute;
   display: none;
@@ -49,14 +31,6 @@
   .header {
     padding: 20px 0px;
   }
-  .header ul {
-    flex-direction: row;
-    align-items: center;
-    font-size: 14px;
-  }
-  .header ul li {
-    color: #eae5ec;
-  }
   .navbar-title {
     font-size: 16px;
   }
@@ -70,14 +44,73 @@
   .header {
     padding: 35px 0px;
   }
-  .header ul {
-    column-gap: 80px;
-    font-size: 16px;
-  }
   .navbar-connect {
     font-size: 16px;
   }
   .navbar-title {
     font-size: 18px;
+  }
+}
+
+.chapter-nav {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  z-index: 9999;
+  display: none;
+}
+.chapter-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-end;
+}
+.chapter-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 0;
+}
+.chapter-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ffffff40;
+  transition: 0.3s;
+  flex-shrink: 0;
+}
+.chapter-label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff80;
+  white-space: nowrap;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: 0.3s;
+}
+.chapter-nav li:hover .chapter-label {
+  max-width: 160px;
+  opacity: 1;
+}
+.chapter-nav li:hover .chapter-dot {
+  background-color: var(--accentColor);
+}
+.chapter-nav li.active .chapter-dot {
+  background-color: var(--accentColor);
+  width: 9px;
+  height: 9px;
+}
+.chapter-nav li.active .chapter-label {
+  color: var(--accentColor);
+}
+@media only screen and (min-width: 900px) {
+  .chapter-nav {
+    display: block;
   }
 }

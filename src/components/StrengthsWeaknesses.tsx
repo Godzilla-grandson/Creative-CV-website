@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import "./styles/WhatIDo.css";
+import "./styles/StrengthsWeaknesses.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const WhatIDo = () => {
+const StrengthsWeaknesses = () => {
   const containerRef = useRef<(HTMLDivElement | null)[]>([]);
   const setRef = (el: HTMLDivElement | null, index: number) => {
     containerRef.current[index] = el;
@@ -25,12 +25,12 @@ const WhatIDo = () => {
     };
   }, []);
   return (
-    <div className="whatIDO">
+    <div className="whatIDO" id="strengths">
       <div className="what-box">
         <h2 className="title">
-          W<span className="hat-h2">HAT</span>
+          S<span className="hat-h2">TRENGTHS</span>
           <div>
-            I<span className="do-h2"> DO</span>
+            &<span className="do-h2"> WEAKNESSES</span>
           </div>
         </h2>
       </div>
@@ -87,24 +87,17 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>DEVELOP</h3>
+              <h3>STRENGTH</h3>
               <h4>Description</h4>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-                quia aliquid laboriosam ducimus sit molestiae.
+                [Placeholder — your biggest strength, told honestly. What it
+                looks like when you're at your best.]
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Shows up as</h5>
               <div className="what-content-flex">
-                <div className="what-tags">JavaScript</div>
-                <div className="what-tags">TypeScript</div>
-                <div className="what-tags">Three.js</div>
-                <div className="what-tags">React</div>
-                <div className="what-tags">Css</div>
-                <div className="what-tags">Node.js</div>
-                <div className="what-tags">Next.js</div>
-                <div className="what-tags">Express.js</div>
-                <div className="what-tags">PHP</div>
-                <div className="what-tags">MySql</div>
+                <div className="what-tags">[Trait 1]</div>
+                <div className="what-tags">[Trait 2]</div>
+                <div className="what-tags">[Trait 3]</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -128,22 +121,16 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>DESIGN</h3>
+              <h3>WEAKNESS</h3>
               <h4>Description</h4>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-                quia aliquid laboriosam ducimus sit molestiae
+                [Placeholder — a real weakness, told honestly. What you're
+                actively working on and how.]
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Working on it by</h5>
               <div className="what-content-flex">
-                <div className="what-tags">Blender</div>
-                <div className="what-tags">Zbrush</div>
-                <div className="what-tags">UI Design</div>
-                <div className="what-tags">Motion</div>
-                <div className="what-tags">Rigging</div>
-                <div className="what-tags">3D Animation</div>
-                <div className="what-tags">Character Design</div>
-                <div className="what-tags">Modelling</div>
+                <div className="what-tags">[Habit 1]</div>
+                <div className="what-tags">[Habit 2]</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -154,7 +141,7 @@ const WhatIDo = () => {
   );
 };
 
-export default WhatIDo;
+export default StrengthsWeaknesses;
 
 function handleClick(container: HTMLDivElement) {
   container.classList.toggle("what-content-active");
