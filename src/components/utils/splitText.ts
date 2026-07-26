@@ -31,6 +31,11 @@ export default function setSplitText() {
       linesClass: "split-line",
     });
 
+    // Beauty's paragraph runs faster than the shared default -- tagged
+    // with .para-fast rather than changing the default, so other .para
+    // elements (About, etc.) keep their original reveal speed.
+    const isFast = para.classList.contains("para-fast");
+
     para.anim = gsap.fromTo(
       para.split.words,
       { autoAlpha: 0, y: 80 },
@@ -41,10 +46,10 @@ export default function setSplitText() {
           toggleActions: ToggleAction,
           start: TriggerStart,
         },
-        duration: 1,
+        duration: isFast ? 0.6 : 1,
         ease: "power3.out",
         y: 0,
-        stagger: 0.02,
+        stagger: isFast ? 0.012 : 0.02,
       }
     );
   });

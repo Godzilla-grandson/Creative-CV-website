@@ -1,8 +1,7 @@
-import { FaInstagram, FaLinkedinIn } from "react-icons/fa6";
+import { FaLinkedinIn } from "react-icons/fa6";
 import "./styles/SocialIcons.css";
-import { TbNotes } from "react-icons/tb";
+import { MdEmail } from "react-icons/md";
 import { useEffect } from "react";
-import HoverLinks from "./HoverLinks";
 
 const SocialIcons = () => {
   useEffect(() => {
@@ -55,22 +54,16 @@ const SocialIcons = () => {
     <div className="icons-section">
       <div className="social-icons" data-cursor="icons" id="social">
         <span>
-          <a href="https://www.linkedin.com" target="_blank">
+          <a href="https://www.linkedin.com/in/hrishit-sethia-568160232/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BJh0dY2gzR1GTB83qzjvvKw%3D%3D" target="_blank">
             <FaLinkedinIn />
           </a>
         </span>
         <span>
-          <a href="https://www.instagram.com" target="_blank">
-            <FaInstagram />
+          <a href="mailto:h.sethia29@gmail.com" target="_blank">
+            <MdEmail />
           </a>
         </span>
       </div>
-      <a className="resume-button" href="#">
-        <HoverLinks text="RESUME" />
-        <span>
-          <TbNotes />
-        </span>
-      </a>
     </div>
   );
 };

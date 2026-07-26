@@ -10,21 +10,21 @@ const Contact = () => {
           <div className="contact-box">
             <h4>Email</h4>
             <p>
-              <a href="mailto:example@mail.com" data-cursor="disable">
-                example@mail.com
+              <a href="mailto:h.sethia29@gmail.com" data-cursor="disable">
+                h.sethia29@gmail.com
               </a>
             </p>
             <h4>Phone</h4>
             <p>
-              <a href="tel:+9199999999" data-cursor="disable">
-                +91 99999 99999
+              <a href="tel:+918160833190" data-cursor="disable">
+                +91 8160833190
               </a>
             </p>
           </div>
           <div className="contact-box">
-            <h4>Social</h4>
+            <h4>More here</h4>
             <a
-              href="https://www.linkedin.com"
+              href="https://www.linkedin.com/in/hrishit-sethia-568160232/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BJh0dY2gzR1GTB83qzjvvKw%3D%3D"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
@@ -32,17 +32,17 @@ const Contact = () => {
               Linkedin <MdArrowOutward />
             </a>
             <a
-              href="https://www.instagram.com"
+              href="https://www.behance.net/hrishit7"
               target="_blank"
               data-cursor="disable"
               className="contact-social"
             >
-              Instagram <MdArrowOutward />
+              Portfolio <MdArrowOutward />
             </a>
           </div>
           <div className="contact-box">
             <h2>
-              Thank you for reading my story. <br />— <span>HRISHIT SETHIA</span>
+              Thank you for reading my story. <br />- <span>HRISHIT SETHIA</span>
             </h2>
             <h5>
               <MdCopyright /> 2026

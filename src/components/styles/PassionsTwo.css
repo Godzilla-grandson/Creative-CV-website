@@ -1,0 +1,120 @@
+.passions-two {
+  width: var(--cWidth);
+  max-width: 1200px;
+  position: relative;
+  height: auto;
+  margin: 60px auto;
+  padding: 60px 0;
+  text-align: center;
+  /* This section sits immediately after What I Do. The character is
+     position:fixed at z-index:11, so without an explicit z-index here it
+     was painting on top of this section's text/cards -- same fix already
+     used for .about-me and .whatido-section. */
+  z-index: 20;
+}
+
+@media screen and (min-width: 1025px) {
+  .passions-two {
+    /* Reserves real scroll space for the character's exit (tl4 in
+       GsapScroll.ts, a 320px window starting at #what-i-do's bottom),
+       plus extra breathing room past that so this section doesn't arrive
+       the instant the character is gone -- instead of hiding this
+       section's content with opacity while scroll continues past its
+       actual layout position, which caused the cards to already be
+       scrolled out of view by the time they became visible. Same
+       technique .passions itself used to use here before PassionsTwo was
+       inserted in front of it. The first 320px must stay in sync with
+       tl4's exit window if that changes; the rest is just pacing. */
+    margin-top: 500px;
+  }
+}
+
+.passions-two h2 {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 40px;
+}
+
+.passions-two-cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.passions-two-card {
+  border: 1px solid #ffffff30;
+  border-radius: 16px;
+  padding: 24px;
+  background-color: rgba(255, 255, 255, 0.03);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.passions-two-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.passions-two-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.passions-two-card-image-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #ffffff40;
+}
+
+.passions-two-card h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  overflow-wrap: break-word;
+}
+
+.passions-two-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 300;
+  color: #ffffffb0;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 900px) {
+  .passions-two-cards {
+    max-width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .passions-two h2 {
+    font-size: 32px;
+  }
+}

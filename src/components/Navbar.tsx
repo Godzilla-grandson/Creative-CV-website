@@ -10,7 +10,9 @@ export let smoother: ScrollSmoother;
 const chapters = [
   { id: "hero", label: "Hero" },
   { id: "about", label: "About" },
+  { id: "what-i-do", label: "More About Me" },
   { id: "passions", label: "Passions" },
+  { id: "passions-2", label: "Passions 2" },
   { id: "beauty", label: "Beauty" },
   { id: "work", label: "Brand" },
   { id: "strengths", label: "Strengths" },
@@ -92,13 +94,48 @@ const Navbar = () => {
         >
           Hrishit Sethia
         </a>
-        <a
-          href="mailto:example@mail.com"
-          className="navbar-connect"
-          data-cursor="disable"
-        >
-          example@mail.com
-        </a>
+        <nav className="header-nav" data-cursor="disable">
+          <a
+            href="#about"
+            onClick={(e) => {
+              if (window.innerWidth > 1024) {
+                e.preventDefault();
+                scrollToChapter("#about");
+              }
+            }}
+          >
+            About
+          </a>
+          <a
+            href="#work"
+            onClick={(e) => {
+              if (window.innerWidth > 1024) {
+                e.preventDefault();
+                scrollToChapter("#work");
+              }
+            }}
+          >
+            Work
+          </a>
+          <a
+            href="#contact"
+            onClick={(e) => {
+              if (window.innerWidth > 1024) {
+                e.preventDefault();
+                scrollToChapter("#contact");
+              }
+            }}
+          >
+            Contact
+          </a>
+          <a
+            href="https://drive.google.com/file/d/17maqgvkYJ0EWrqfpNdSBbdTPV0ImxO5k/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Resume
+          </a>
+        </nav>
       </div>
 
       <nav className="chapter-nav" data-cursor="disable">

@@ -8,8 +8,10 @@ import DesignPortfolio from "./DesignPortfolio";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
 import Passions from "./Passions";
+import PassionsTwo from "./PassionsTwo";
 import SocialIcons from "./SocialIcons";
 import StrengthsWeaknesses from "./StrengthsWeaknesses";
+import WhatIDo from "./WhatIDo";
 import setSplitText from "./utils/splitText";
 
 const MainContainer = ({ children }: PropsWithChildren) => {
@@ -40,6 +42,8 @@ const MainContainer = ({ children }: PropsWithChildren) => {
           <div className="container-main">
             <Landing>{!isDesktopView && children}</Landing>
             <About />
+            <WhatIDo />
+            <PassionsTwo />
             <Passions isDesktopView={isDesktopView} />
             <Beauty />
             <BrandSpotlight />

@@ -8,6 +8,17 @@
   height: auto;
   width: var(--cWidth);
   margin: auto;
+  transition: opacity 0.3s ease;
+}
+
+.about-section.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.about-section.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 .about-me {
   padding: 50px 0px;
@@ -26,10 +37,10 @@
 }
 
 .about-me p {
-  font-size: 33px;
-  font-weight: 600;
-  line-height: 36px;
-  letter-spacing: 1px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: 0.2px;
 }
 
 @media only screen and (min-width: 600px) {
@@ -60,8 +71,8 @@
     /* Fixed, bounded column (not a 50%-width block) so the text never
        extends into the character/monitor's space, with the same dashed
        boxed containment used by the Strengths & Weaknesses cards. */
-    width: 480px;
-    max-width: 40%;
+    width: 580px;
+    max-width: 44%;
     padding: 40px;
     box-sizing: border-box;
     border: 1px dashed rgba(255, 255, 255, 0.3);
@@ -73,18 +84,18 @@
     margin-right: 80px;
   }
   .about-me p {
-    font-size: 1.9vw;
-    line-height: 2.3vw;
+    font-size: 0.95vw;
+    line-height: 1.5vw;
   }
 }
 @media only screen and (min-width: 1600px) {
   .about-me {
-    width: 560px;
+    width: 660px;
   }
 }
 @media only screen and (min-width: 1950px) {
   .about-me p {
-    font-size: 2.5rem;
-    line-height: 2.7rem;
+    font-size: 1.1rem;
+    line-height: 1.6rem;
   }
 }

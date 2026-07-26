@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import "./styles/StrengthsWeaknesses.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const StrengthsWeaknesses = () => {
-  const [strengthRevealed, setStrengthRevealed] = useState(false);
-  const [weaknessRevealed, setWeaknessRevealed] = useState(false);
   const containerRef = useRef<(HTMLDivElement | null)[]>([]);
   const setRef = (el: HTMLDivElement | null, index: number) => {
     containerRef.current[index] = el;
@@ -30,7 +28,7 @@ const StrengthsWeaknesses = () => {
     <div className="whatIDO" id="strengths">
       <div className="what-box">
         <h2 className="title">
-          S<span className="hat-h2">TRENGTHS</span>
+          MY S<span className="hat-h2">TRENGTHS</span>
           <div>
             &<span className="do-h2"> WEAKNESSES</span>
           </div>
@@ -89,26 +87,15 @@ const StrengthsWeaknesses = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>STRENGTH</h3>
-              <h4>Description</h4>
-              <div
-                className={`redacted redacted-fast${
-                  strengthRevealed ? " revealed" : ""
-                }`}
-                onClick={() => setStrengthRevealed((v) => !v)}
-              >
-                <p>
-                  [Placeholder — your biggest strength, told honestly. What it
-                  looks like when you're at your best.]
-                </p>
-                <div className="redaction-bar"></div>
-              </div>
-              <h5>Shows up as</h5>
+              <h3>STRENGTHS</h3>
               <div className="what-content-flex">
-                <div className="what-tags">[Trait 1]</div>
-                <div className="what-tags">[Trait 2]</div>
-                <div className="what-tags">[Trait 3]</div>
+                <div className="what-tags">Empathy</div>
+                <div className="what-tags">Composure</div>
+                <div className="what-tags">Attention to Detail</div>
               </div>
+              <p>
+                Design taught me empathy first, every brief starts with a pain point, not a solution. Meditation built composure, training the part of my mind that used to react to deadlines and last-minute changes. And attention to detail comes from authenticating sneakers, where one missed stitch separated real from fake, and from product design, where the smallest detail separates functional from exceptional. Together they've left me with a low tolerance for "good enough."
+              </p>
               <div className="what-arrow"></div>
             </div>
           </div>
@@ -131,25 +118,14 @@ const StrengthsWeaknesses = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>WEAKNESS</h3>
-              <h4>Description</h4>
-              <div
-                className={`redacted redacted-slow${
-                  weaknessRevealed ? " revealed" : ""
-                }`}
-                onClick={() => setWeaknessRevealed((v) => !v)}
-              >
-                <p>
-                  [Placeholder — a real weakness, told honestly. What you're
-                  actively working on and how.]
-                </p>
-                <div className="redaction-bar"></div>
-              </div>
-              <h5>Working on it by</h5>
+              <h3>WEAKNESSES</h3>
               <div className="what-content-flex">
-                <div className="what-tags">[Habit 1]</div>
-                <div className="what-tags">[Habit 2]</div>
+                <div className="what-tags">Time Estimation</div>
+                <div className="what-tags">The Comfort of a Lead</div>
               </div>
+              <p>
+                I underestimate how long things take, planning for ideal execution instead of the real one, and deadlines pay for that optimism. I'm working on building in buffer, not just better intentions. I also ease off when I'm winning, the intensity that got me there fades until I've talked myself into being done, and it's cost me finishes I should have controlled. I'm learning to treat a lead as the starting line, not the finish.
+              </p>
               <div className="what-arrow"></div>
             </div>
           </div>

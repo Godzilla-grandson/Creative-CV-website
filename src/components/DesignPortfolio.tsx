@@ -16,28 +16,32 @@ interface Project {
 // Thumbnail is a placeholder — swap `thumbnail` with a real image path per project.
 const projects: Project[] = [
   {
-    title: "Project One",
-    category: "[Category — e.g. Web Design]",
-    description: "[Placeholder — short description of the project]",
-    thumbnail: "/images/placeholder.webp",
+    title: "Menace of Counterfeits in e-commerce ecosystem",
+    category: "Research report",
+    description: "Documenting the rise of counterfeit products in e-commerce ecosystem",
+    thumbnail: "/images/menace.png",
+    link: "https://medium.com/@juicydrops99/the-rising-menace-of-counterfeits-in-e-commerce-ecosystem-293d663070dd",
   },
   {
-    title: "Project Two",
-    category: "[Category — e.g. Brand Identity]",
-    description: "[Placeholder — short description of the project]",
-    thumbnail: "/images/placeholder.webp",
+    title: "The Christmas Truce",
+    category: "A mini collection of 3 garments",
+    description: "A conceptualised collection based on Trench warfare",
+    thumbnail: "/images/christmas truce.png",
+    link: "https://www.behance.net/gallery/183783355/The-Christmas-Truce-(A-mini-collection)",
   },
   {
-    title: "Project Three",
-    category: "[Category — e.g. UI/UX]",
-    description: "[Placeholder — short description of the project]",
-    thumbnail: "/images/placeholder.webp",
+    title: "A blissful retribution",
+    category: "A fashion ensemble",
+    description: "A custom puffer blouse and skirt documented through creative direction",
+    thumbnail: "/images/blissfull retribution.png",
+    link: "https://www.behance.net/gallery/167904613/A-blissful-retribution-(an-ensemble)",
   },
   {
-    title: "Project Four",
-    category: "[Category — e.g. Motion]",
-    description: "[Placeholder — short description of the project]",
-    thumbnail: "/images/placeholder.webp",
+    title: "Smuggling candies into a theatre, fashionably",
+    category: "A conceptual collection",
+    description: "A concept created based on a hypothetical scenario",
+    thumbnail: "/images/candies.png",
+    link: "https://www.behance.net/gallery/196445709/Ways-to-smuggle-a-candy-inside-a-club-or-a-theatre",
   },
 ];
 

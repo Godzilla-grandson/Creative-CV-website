@@ -140,11 +140,15 @@ const PassionsScene = () => {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
+    // Scoped to the Passions section's own visibility (not "anything past
+    // About"), so the physics simulation actually stops once you've
+    // scrolled by -- previously it stayed active for the rest of the page,
+    // burning CPU/GPU on off-screen physics the whole time.
     const handleScroll = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const target = document.getElementById("about");
-      const threshold = target ? target.getBoundingClientRect().top : 0;
-      setIsActive(scrollY > threshold);
+      const target = document.getElementById("passions");
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
+      setIsActive(rect.top < window.innerHeight && rect.bottom > 0);
     };
     document.querySelectorAll(".header a").forEach((elem) => {
       const element = elem as HTMLAnchorElement;

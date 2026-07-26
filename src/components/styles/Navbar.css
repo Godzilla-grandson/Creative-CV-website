@@ -12,15 +12,16 @@
   top: 0;
   z-index: 9999;
 }
-.navbar-connect {
-  position: absolute;
+.header-nav {
   display: none;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  align-items: center;
+  gap: 32px;
+}
+.header-nav a {
   font-size: 15px;
   letter-spacing: 1px;
-  font-weight: 500;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 .navbar-title {
   font-weight: 700;
@@ -36,15 +37,15 @@
   }
 }
 @media only screen and (min-width: 900px) {
-  .navbar-connect {
-    display: block;
+  .header-nav {
+    display: flex;
   }
 }
 @media only screen and (min-width: 1200px) {
   .header {
     padding: 35px 0px;
   }
-  .navbar-connect {
+  .header-nav a {
     font-size: 16px;
   }
   .navbar-title {

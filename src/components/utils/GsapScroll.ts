@@ -110,7 +110,12 @@ export function setCharTimeline(
         0
       )
       .to(".about-section", { y: "30%", duration: 6 }, 0)
-      .to(monitor!.material, { opacity: 1, duration: 0.8, delay: 3.2 }, 0)
+      // Moves the box out of view under its own speed (on top of normal
+      // scroll motion) so it's fully offscreen well before the monitor
+      // lights up at delay:6 above -- not left to drift out at the pace
+      // of ordinary document scroll, which wasn't reliably clear in time.
+      .to(".about-me", { y: "-140%", duration: 3.5, ease: "power1.in" }, 0)
+      .to(monitor!.material, { opacity: 1, duration: 0.8, delay: 6 }, 0)
       .fromTo(
         ".character-model",
         { pointerEvents: "inherit" },
@@ -119,7 +124,7 @@ export function setCharTimeline(
       )
       .to(character.rotation, { y: 0.92, x: 0.12, delay: 3, duration: 3 }, 0)
       .to(neckBone!.rotation, { x: 0.6, delay: 2, duration: 3 }, 0)
-      .to(screenLight!.material, { opacity: 1, duration: 0.8, delay: 4.5 }, 0)
+      .to(screenLight!.material, { opacity: 1, duration: 0.8, delay: 7.3 }, 0)
       .fromTo(
         ".character-rim",
         { opacity: 1, scaleX: 1.4 },
@@ -127,26 +132,38 @@ export function setCharTimeline(
         0.3
       );
 
-    // Still one shared timeline/trigger (not two independent scroll
-    // systems) -- but staggered into non-overlapping segments: the About
-    // box fully finishes its exit (0 -> 0.3) before the character starts
-    // moving at all (0.3 -> 1). The character's own segment now gets most
-    // of tl3's widened range, with easing and a paired opacity fade
-    // (instead of a fast, linear, position-only move) so it glides out
-    // rather than snapping.
-    tl3
-      .fromTo(
-        ".about-me",
-        { opacity: 1 },
-        { opacity: 0, ease: "none", duration: 0.21 },
-        0
-      )
-      .fromTo(
-        ".character-model",
-        { y: "0%", opacity: 1 },
-        { y: "-100%", opacity: 0, ease: "power2.out", duration: 0.79 },
-        0.21
-      );
+    // Just the About box's own exit -- a fast safety-net fade tied to
+    // .about-section itself, independent of the character. The character
+    // stays on screen (seated at the desk from tl2) through the whole of
+    // the new "What I Do" section below; its exit is tl4, anchored on
+    // that section instead of this one.
+    tl3.fromTo(
+      ".about-me",
+      { opacity: 1 },
+      { opacity: 0, ease: "none", duration: 0.21 },
+      0
+    );
+
+    // Character's exit, deferred until the "What I Do" section (which
+    // now sits between About and Passions) has fully scrolled past --
+    // keeps the seated/typing pose from tl2 visible as the backdrop for
+    // that section's header + cards instead of vanishing right after
+    // About.
+    const tl4 = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#what-i-do",
+        start: "bottom top",
+        end: "bottom+=320 top",
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    });
+    tl4.fromTo(
+      ".character-model",
+      { y: "0%", opacity: 1 },
+      { y: "-100%", opacity: 0, ease: "power2.out", duration: 1 },
+      0
+    );
   }
 }
 
@@ -164,45 +181,38 @@ export function setChapterReveals() {
     0
   );
 
-  // Anchored to the exact same point tl3 (in setCharTimeline) ends on --
-  // ".about-section" "bottom+=800 top" -- zero explicit buffer, so this
-  // starts the instant the character's exit finishes. Not an independent
-  // guess based on Passions' own position, which could end up starting
-  // before the character's exit completes.
+  // PassionsTwo (a plain, un-animated section) now sits between What I Do
+  // and Passions in document order, so the character's exit (tl4, still
+  // anchored to "#what-i-do" bottom+320) finishes during PassionsTwo, not
+  // immediately before Passions. Passions' own entrance is anchored to
+  // PassionsTwo's bottom instead -- its actual, variable-height position
+  // in the document -- rather than a fixed offset from What I Do, which
+  // would drift out of sync with PassionsTwo's real height.
   //
-  // Total range cut from 700px to 350px, with the "hold" specifically
-  // cut from 245px to 80px -- the hold (a static, nothing-animating
-  // pause) was the single largest contributor to the perceived dead
-  // scroll space, more than the handoff point itself was.
+  // Total range kept at the same 140px span the old "+=320 to +=460"
+  // window used, with the "hold" specifically cut from 245px to 80px --
+  // the hold (a static, nothing-animating pause) was the single largest
+  // contributor to the perceived dead scroll space, more than the
+  // handoff point itself was.
   //
-  // One timeline, three non-overlapping phases (same trigger, staggered
-  // positions -- not three independent scroll systems):
-  //   1. container (bubbles + "My Passions" header) fades in
-  //   2. a short hold -- header stays visible, nothing animates
-  //   3. the 3 cards fade in afterward, once the header's had its moment
+  // Single-phase entrance now that this section is just the header +
+  // bubble scene (no cards to stagger a second phase for): the container
+  // (bubbles + "My Passions" header) fades in, full stop.
   const tlPassionsEntrance = gsap.timeline({
     scrollTrigger: {
-      trigger: ".about-section",
-      start: "bottom+=320 top",
-      end: "bottom+=460 top",
+      trigger: "#passions-2",
+      start: "bottom top",
+      end: "bottom+=140 top",
       scrub: true,
       invalidateOnRefresh: true,
     },
   });
-  tlPassionsEntrance
-    // duration extended from 0.34 to 0.57 (48px -> 80px of actual scroll):
-    // at 0.34 this fade was so short it read as an instant snap rather
-    // than a visible fade, unlike the ~100px exit fades. Runs right up to
-    // where the cards tween below picks up, so the previous silent gap
-    // between "container visible" and "cards start" is now an active,
-    // visible fade instead -- cards' own start/duration are unchanged.
-    .fromTo("#passions", { opacity: 0 }, { opacity: 1, ease: "power1.inOut", duration: 0.57 }, 0)
-    .fromTo(
-      ".passions-cards",
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, ease: "power1.inOut", duration: 0.43 },
-      0.57
-    );
+  tlPassionsEntrance.fromTo(
+    "#passions",
+    { opacity: 0 },
+    { opacity: 1, ease: "power1.inOut", duration: 0.57 },
+    0
+  );
 
   // Passions was fading out almost instantly on scroll, before the
   // header/cards were even fully visible for a moment -- because there
@@ -239,7 +249,9 @@ export function setChapterReveals() {
         {
           opacity: 0,
           ease: "power1.inOut",
-          duration: EXIT_PX / 2 / PIN_TOTAL_PX,
+          // No cards to stagger a second fade-out phase with anymore --
+          // the header just fades out over the full exit window.
+          duration: EXIT_PX / PIN_TOTAL_PX,
           // Without this, GSAP applies this tween's {opacity:1} "from"
           // value the instant it's created (page load), regardless of
           // its position in the timeline -- clobbering whatever the
@@ -247,17 +259,6 @@ export function setChapterReveals() {
           immediateRender: false,
         },
         (140 + HOLD_PX) / PIN_TOTAL_PX
-      )
-      .fromTo(
-        ".passions-cards",
-        { opacity: 1 },
-        {
-          opacity: 0,
-          ease: "power1.inOut",
-          duration: EXIT_PX / 2 / PIN_TOTAL_PX,
-          immediateRender: false,
-        },
-        (140 + HOLD_PX + EXIT_PX / 2) / PIN_TOTAL_PX
       );
   }
 }
