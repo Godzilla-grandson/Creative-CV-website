@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import setCharacter from "./utils/character";
 import setLighting from "./utils/lighting";
@@ -19,7 +19,6 @@ const Scene = () => {
   const sceneRef = useRef(new THREE.Scene());
   const { setLoading } = useLoading();
 
-  const [character, setChar] = useState<THREE.Object3D | null>(null);
   useEffect(() => {
     if (canvasDiv.current) {
       let rect = canvasDiv.current.getBoundingClientRect();
@@ -53,8 +52,16 @@ const Scene = () => {
       let progress = setProgress((value) => setLoading(value));
       const { loadCharacter } = setCharacter(renderer, scene, camera);
 
-      const onWindowResize = () =>
-        handleResize(renderer, camera, canvasDiv, character || new THREE.Object3D());
+      // Declared here (so the cleanup function below can always find it to
+      // remove the listener) but assigned inside .then() once the real
+      // character exists. Defining it eagerly up here and closing over a
+      // `character` React state was the bug: that closure captures state
+      // as of mount time (always null, since the async load hadn't
+      // resolved yet), not the live value -- so every resize silently ran
+      // on an empty THREE.Object3D() instead of the actual character,
+      // crashing setCharTimeline() wherever it expects real mesh/material
+      // data.
+      let onWindowResize: (() => void) | undefined;
 
       loadCharacter().then((gltf) => {
         if (gltf) {
@@ -62,7 +69,6 @@ const Scene = () => {
           hoverDivRef.current && animations.hover(gltf, hoverDivRef.current);
           mixer = animations.mixer;
           let character = gltf.scene;
-          setChar(character);
           scene.add(character);
           headBone = character.getObjectByName("spine006") || null;
           screenLight = character.getObjectByName("screenlight") || null;
@@ -72,6 +78,8 @@ const Scene = () => {
               animations.startIntro();
             }, 2500);
           });
+          onWindowResize = () =>
+            handleResize(renderer, camera, canvasDiv, character);
           window.addEventListener("resize", onWindowResize);
         }
       });
@@ -131,7 +139,9 @@ const Scene = () => {
         clearTimeout(debounce);
         scene.clear();
         renderer.dispose();
-        window.removeEventListener("resize", onWindowResize);
+        if (onWindowResize) {
+          window.removeEventListener("resize", onWindowResize);
+        }
         document.removeEventListener("mousemove", onMouseMove);
         if (canvasDiv.current) {
           canvasDiv.current.removeChild(renderer.domElement);

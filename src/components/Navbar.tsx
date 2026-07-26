@@ -14,6 +14,7 @@ const chapters = [
   { id: "beauty", label: "Beauty" },
   { id: "work", label: "Brand" },
   { id: "strengths", label: "Strengths" },
+  { id: "portfolio", label: "Portfolio" },
   { id: "contact", label: "Contact" },
 ];
 

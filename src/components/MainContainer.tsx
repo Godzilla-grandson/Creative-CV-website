@@ -4,6 +4,7 @@ import Beauty from "./Beauty";
 import BrandSpotlight from "./BrandSpotlight";
 import Contact from "./Contact";
 import Cursor from "./Cursor";
+import DesignPortfolio from "./DesignPortfolio";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
 import Passions from "./Passions";
@@ -43,6 +44,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
             <Beauty />
             <BrandSpotlight />
             <StrengthsWeaknesses />
+            <DesignPortfolio />
             <Contact />
           </div>
         </div>

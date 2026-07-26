@@ -14,6 +14,8 @@
   padding-bottom: 0;
   width: 500px;
   max-width: calc(100% - 15px);
+  position: relative;
+  z-index: 20;
 }
 .about-me h3 {
   font-size: 25px;
@@ -55,12 +57,29 @@
     opacity: 1;
   }
   .about-me {
-    padding: 0px;
-    width: 50%;
+    /* Fixed, bounded column (not a 50%-width block) so the text never
+       extends into the character/monitor's space, with the same dashed
+       boxed containment used by the Strengths & Weaknesses cards. */
+    width: 480px;
+    max-width: 40%;
+    padding: 40px;
+    box-sizing: border-box;
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    background-color: rgba(11, 8, 12, 0.55);
+    backdrop-filter: blur(6px);
+    /* Fixed px, not %-based: cWidth's margin shrinks to near-zero at
+       narrower desktop widths (just above this breakpoint), which was
+       letting this box nearly touch the .chapter-nav dots at right:24px. */
+    margin-right: 80px;
   }
   .about-me p {
     font-size: 1.9vw;
     line-height: 2.3vw;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .about-me {
+    width: 560px;
   }
 }
 @media only screen and (min-width: 1950px) {

@@ -8,7 +8,7 @@ interface Props {
   link?: string;
 }
 
-const WorkImage = (props: Props) => {
+const PortfolioImage = (props: Props) => {
   const [isVideo, setIsVideo] = useState(false);
   const [video, setVideo] = useState("");
   const handleMouseEnter = async () => {
@@ -22,9 +22,9 @@ const WorkImage = (props: Props) => {
   };
 
   return (
-    <div className="work-image">
+    <div className="portfolio-image">
       <a
-        className="work-image-in"
+        className="portfolio-image-in"
         href={props.link}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsVideo(false)}
@@ -32,15 +32,17 @@ const WorkImage = (props: Props) => {
         data-cursor={"disable"}
       >
         {props.link && (
-          <div className="work-link">
+          <div className="portfolio-link">
             <MdArrowOutward />
           </div>
         )}
         <img src={props.image} alt={props.alt} />
-        {isVideo && <video src={video} autoPlay muted playsInline loop></video>}
+        {isVideo && (
+          <video src={video} autoPlay muted playsInline loop></video>
+        )}
       </a>
     </div>
   );
 };
 
-export default WorkImage;
+export default PortfolioImage;

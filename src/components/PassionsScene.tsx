@@ -11,9 +11,30 @@ import {
   RapierRigidBody,
 } from "@react-three/rapier";
 
-const textureLoader = new THREE.TextureLoader();
 const imageUrls = ["/images/placeholder.webp"];
-const textures = imageUrls.map((url) => textureLoader.load(url));
+
+// Pre-blurs/desaturates the source image onto an offscreen canvas so it
+// reads as "seen through frosted glass" rather than a sharp texture pasted
+// onto the sphere surface.
+function createFrostedTexture(url: string): THREE.Texture {
+  const texture = new THREE.Texture();
+  const img = new Image();
+  img.crossOrigin = "anonymous";
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext("2d")!;
+    ctx.filter = "blur(8px) saturate(0.55) brightness(1.05)";
+    ctx.drawImage(img, 0, 0);
+    texture.image = canvas;
+    texture.needsUpdate = true;
+  };
+  img.src = url;
+  return texture;
+}
+
+const textures = imageUrls.map((url) => createFrostedTexture(url));
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
@@ -146,12 +167,16 @@ const PassionsScene = () => {
       (texture) =>
         new THREE.MeshPhysicalMaterial({
           map: texture,
-          emissive: "#ffffff",
+          color: "#e4d9ff",
+          emissive: "#c2a4ff",
           emissiveMap: texture,
-          emissiveIntensity: 0.3,
-          metalness: 0.5,
-          roughness: 1,
-          clearcoat: 0.1,
+          emissiveIntensity: 0.15,
+          metalness: 0,
+          roughness: 0.25,
+          transparent: true,
+          opacity: 0.82,
+          clearcoat: 1,
+          clearcoatRoughness: 0.1,
         })
     );
   }, []);

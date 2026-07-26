@@ -75,6 +75,19 @@ body {
   margin: auto;
   position: relative;
 }
+@media only screen and (min-width: 1025px) {
+  /* #smooth-wrapper is a sibling of the fixed, z-index:11 character
+     model (see MainContainer.tsx), not a descendant of it. Without an
+     explicit z-index here, the entire page's content -- including any
+     z-index set inside it, like .about-me's -- gets flattened beneath
+     the character regardless of nested stacking order. */
+  #smooth-wrapper {
+    /* ScrollSmoother sets position:fixed on this element via inline
+       style already, so it's already positioned -- z-index just needs
+       adding here for it to take effect. */
+    z-index: 12;
+  }
+}
 .container1 {
   width: var(--cWidth);
   height: var(--vh);

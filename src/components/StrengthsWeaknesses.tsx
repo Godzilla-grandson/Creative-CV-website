@@ -1,8 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./styles/StrengthsWeaknesses.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const StrengthsWeaknesses = () => {
+  const [strengthRevealed, setStrengthRevealed] = useState(false);
+  const [weaknessRevealed, setWeaknessRevealed] = useState(false);
   const containerRef = useRef<(HTMLDivElement | null)[]>([]);
   const setRef = (el: HTMLDivElement | null, index: number) => {
     containerRef.current[index] = el;
@@ -89,10 +91,18 @@ const StrengthsWeaknesses = () => {
             <div className="what-content-in">
               <h3>STRENGTH</h3>
               <h4>Description</h4>
-              <p>
-                [Placeholder — your biggest strength, told honestly. What it
-                looks like when you're at your best.]
-              </p>
+              <div
+                className={`redacted redacted-fast${
+                  strengthRevealed ? " revealed" : ""
+                }`}
+                onClick={() => setStrengthRevealed((v) => !v)}
+              >
+                <p>
+                  [Placeholder — your biggest strength, told honestly. What it
+                  looks like when you're at your best.]
+                </p>
+                <div className="redaction-bar"></div>
+              </div>
               <h5>Shows up as</h5>
               <div className="what-content-flex">
                 <div className="what-tags">[Trait 1]</div>
@@ -123,10 +133,18 @@ const StrengthsWeaknesses = () => {
             <div className="what-content-in">
               <h3>WEAKNESS</h3>
               <h4>Description</h4>
-              <p>
-                [Placeholder — a real weakness, told honestly. What you're
-                actively working on and how.]
-              </p>
+              <div
+                className={`redacted redacted-slow${
+                  weaknessRevealed ? " revealed" : ""
+                }`}
+                onClick={() => setWeaknessRevealed((v) => !v)}
+              >
+                <p>
+                  [Placeholder — a real weakness, told honestly. What you're
+                  actively working on and how.]
+                </p>
+                <div className="redaction-bar"></div>
+              </div>
               <h5>Working on it by</h5>
               <div className="what-content-flex">
                 <div className="what-tags">[Habit 1]</div>

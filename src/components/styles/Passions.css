@@ -17,41 +17,146 @@
   z-index: 1;
 }
 
-.passions-mobile {
-  display: flex;
-  flex-direction: column;
+/* Card row -- mobile/tablet default: normal document flow, always
+   visible. The GSAP entrance timeline in GsapScroll.ts only runs when
+   window.innerWidth > 1024, so anything that depends on it to become
+   visible would otherwise stay invisible forever below that width. */
+.passions-cards {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 20px;
   width: var(--cWidth);
   max-width: 500px;
-  margin: auto;
-  padding-top: 220px;
-  padding-bottom: 80px;
+  margin: 40px auto 0;
+  opacity: 1;
 }
 
-.passions-mobile-tile {
+.passions-card {
   border: 1px solid #ffffff30;
   border-radius: 16px;
-  padding: 30px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 500;
+  padding: 24px;
   background-color: rgba(255, 255, 255, 0.03);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.passions-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.passions-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.passions-card-image-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #ffffff40;
+}
+
+.passions-card h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  /* Long titles wrap instead of overflowing the card. */
+  overflow-wrap: break-word;
+}
+
+.passions-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 300;
+  color: #ffffffb0;
+  overflow-wrap: break-word;
+  /* Clamp to 3 lines -- longer descriptions truncate cleanly instead of
+     growing the card or overflowing its bounds. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1025px) {
+  .passions {
+    /* Fixed px, not vh: GsapScroll.ts's exit/entrance triggers use
+       fixed pixel offsets from .about-section's bottom (currently
+       ~1750px for the smoothed character exit + entrance sequence).
+       This value has to track that number -- if it's smaller,
+       Passions' own natural document position ends up earlier than
+       where its fade-in trigger actually fires, so it scrolls
+       off-screen *before* becoming visible (the "Passions never
+       appears" bug). Keep these two in sync if either changes.
+    */
+    margin-top: 320px;
+  }
+
+  .passions-cards {
+    /* Desktop: positioned as a row below the header/bubble canvas
+       within the same full-viewport-height section (not normal flow,
+       since the canvas fills the section edge-to-edge as a
+       background), starting hidden -- GsapScroll.ts's
+       tlPassionsEntrance fades this in on its own timeline, staggered
+       after the header's hold so the two never animate at once. */
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--cWidth);
+    max-width: 1100px;
+    margin: 0;
+    opacity: 0;
+    /* auto-fit reflows from 3 columns down to fewer (or a single
+       stacked column) as available width shrinks, instead of letting
+       cards overflow or get clipped at narrower desktop widths. */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+
+  .passions-card {
+    padding: 20px;
+  }
 }
 
 @media screen and (max-width: 1024px) {
   .passions {
+    /* No 3D canvas below this width (gated by isDesktopView in
+       Passions.tsx), so let the section size to its actual content
+       (header + stacked cards) instead of forcing a fixed viewport
+       height that could clip content or leave dead space. */
     height: auto;
+  }
+  .passions h2 {
+    /* Same breakpoint as the height:auto rule above (not a separate,
+       narrower one) -- h2 is position:absolute above this width for
+       the desktop canvas overlay, which would otherwise float
+       disconnected from (and could collide with) the now always-
+       visible, normal-flow .passions-cards below it. */
+    position: relative;
+    top: auto;
+    padding-top: 60px;
   }
 }
 
 @media screen and (max-width: 900px) {
   .passions h2 {
     font-size: 40px;
-    position: relative;
-    top: auto;
-    padding-top: 40px;
-  }
-  .passions-mobile {
     padding-top: 40px;
   }
 }
